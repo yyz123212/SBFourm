@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.yeyz.fourm.entity.Student;
 import org.yeyz.fourm.service.IStudentService;
 //测试用 第二次提交学生类控制器
+//测试 ,更新
 @Controller
 
 public class StudentController {
