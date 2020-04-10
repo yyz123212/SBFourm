@@ -59,6 +59,63 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		
+		
+		
+		<!-- jackson 处理JSON对象 -->
+
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+	</dependency>
+		
+
+<dependency>
+	<groupId>com.fasterxml.jackson.core</groupId>
+	<artifactId>jackson-annotations</artifactId>
+</dependency>
+
+
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+	</dependency>
+	
+	<!-- JSONlib 可以使用 fromObject(json对象) -->
+	
+<dependency>
+    <groupId>net.sf.json-lib</groupId>
+    <artifactId>json-lib</artifactId>
+    <version>2.4</version>
+    <classifier>jdk15</classifier>
+</dependency>
+		
+	
+<!-- OKHttp -->
+<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.5.0</version>
+</dependency>
+
+<!-- fastjson 将String字符串转为对象 -->
+<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.68</version>
+</dependency>
+
+
+		
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>
