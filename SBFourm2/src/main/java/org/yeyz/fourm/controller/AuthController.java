@@ -19,7 +19,7 @@ import net.sf.json.JSONObject;
 
 
 @Controller
-
+//
 public class AuthController {
 	
 	@Autowired
