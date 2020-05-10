@@ -6,6 +6,8 @@ public class GitHubUser {
 	private Long id;
 	//描述信息
 	private String bio;
+	//头像信息
+	private String avatar_url;
 	
 	public GitHubUser() {
 		
@@ -16,6 +18,17 @@ public class GitHubUser {
 		this.name = name;
 		this.id = id;
 		this.bio = bio;
+	}
+
+	
+	
+	
+	public GitHubUser(String name, Long id, String bio, String avatar_url) {
+		
+		this.name = name;
+		this.id = id;
+		this.bio = bio;
+		this.avatar_url = avatar_url;
 	}
 
 	public String getName() {
@@ -42,10 +55,20 @@ public class GitHubUser {
 		this.bio = bio;
 	}
 
+	public String getAvatar_url() {
+		return avatar_url;
+	}
+
+	public void setAvatar_url(String avatar_url) {
+		this.avatar_url = avatar_url;
+	}
+
 	@Override
 	public String toString() {
-		return "GitHubUser [name=" + name + ", id=" + id + ", bio=" + bio + "]";
+		return "GitHubUser [name=" + name + ", id=" + id + ", bio=" + bio + ", avatar_url=" + avatar_url + "]";
 	}
+
+	
 	
 	
 	

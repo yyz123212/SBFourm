@@ -3,6 +3,7 @@ package org.yeyz.fourm.method;
 
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Component;
 import org.yeyz.fourm.dto.GitHubUser;
@@ -20,7 +21,6 @@ public class SendMethod {
 
 	public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 	OkHttpClient client = new OkHttpClient();
-
 	public String OkPost(String url, String data) {
 		RequestBody body = RequestBody.create(data, JSON);
 		Request request = new Request.Builder()
@@ -42,7 +42,8 @@ public class SendMethod {
 
 		// 和上面不同 获取用户信息 不需要 也不能有 body
 		Request request = new Request.Builder()
-				.url("https://api.github.com/user?access_token=" + access_token)
+				.url("https://api.github.com/user")
+				.header("Authorization","token "+access_token)
 				.build();
 		try (Response response = client.newCall(request).execute()) {
 
