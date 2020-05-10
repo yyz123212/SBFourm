@@ -1,0 +1,56 @@
+@charset "UTF-8";
+.warn{
+	color: red;
+}
+
+.themeInfo{
+	font-size: 12px;
+	font-weight: normal;
+	color:#999;
+}
+.navbar-brand {
+	color: :blue;
+}
+.sr-only{
+	color: :blue;
+}
+
+.reply {
+	float: right;
+}
+
+.commentMenu {
+	color: #999;
+	margin-top: 5px;
+}
+.levelCommentMenu{
+	color: #999;
+	margin-top: 5px;
+}
+
+.menu {
+    color: #000040;
+    margin-top: 5px;
+}
+
+
+.levelComments {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+
+
+.comments{
+	padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+
+.userIsLog{
+	font-size: 15px;
+	font-weight: bolder;
+	color:#000000;
+}

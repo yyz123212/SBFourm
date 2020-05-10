@@ -1,0 +1,29 @@
+$.ajaxSettings.async = false;
+
+
+	<ul class="pagination">
+						
+						<li th:if="${pageDTO.currentPage} != 1 ">
+							<a href="/?currentPage=1" aria-label="Previous"> <span aria-hidden="true">首页</span> </a>
+						</li>
+						<li th:if="${pageDTO.currentPage - 1} > 0 ">
+							<a th:href="@{'/?currentPage=' + ${pageDTO.currentPage - 1}}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
+						</li>
+						
+						<li><a th:if="${pageDTO.currentPage} <= ${pageDTO.totalPage}" 	  th:href="@{'/seach?currentPage=' + ${pageDTO.currentPage}}" th:each="page:${pageDTO.currentPage}" th:text="${page}"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 1} <= ${pageDTO.totalPage}" th:href="@{'/seach?currentPage=' + ${pageDTO.currentPage + 1}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 1"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 2} <= ${pageDTO.totalPage}" th:href="@{'/seach?currentPage=' + ${pageDTO.currentPage + 2}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 2"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 3} <= ${pageDTO.totalPage}" th:href="@{'/seach?currentPage=' + ${pageDTO.currentPage + 3}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 3"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 4} <= ${pageDTO.totalPage}" th:href="@{'/seach?currentPage=' + ${pageDTO.currentPage + 4}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 4"></a></li>
+						<li th:if="${pageDTO.currentPage} < ${pageDTO.totalPage}"><a th:href="@{'/?currentPage=' + ${pageDTO.currentPage + 1}}" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a></li>
+						
+						<li th:if="${pageDTO.currentPage} != ${pageDTO.totalPage} ">
+							<a th:href="@{'/?currentPage=' + ${pageDTO.totalPage}}" aria-label="Previous"> <span aria-hidden="true">末页</span> </a>
+						</li>
+					
+					</ul>
+			
+			
+			
+			
+			

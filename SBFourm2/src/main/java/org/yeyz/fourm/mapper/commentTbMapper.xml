@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yeyz.fourm.mapper.CommentTbMapper">
+	
+	
+	<insert id="addComment" parameterType="org.yeyz.fourm.model.CommentTb">	
+		insert into CommentTb(parentId,id,type,commentator,content,like_count,gtm_create) values(#{parentId},#{id},#{type},#{commentator},#{content},#{like_count},#{gtm_create})
+	</insert>
+	
+	
+	<insert id="addComment2" parameterType="org.yeyz.fourm.model.CommentTb">	
+		insert into CommentTb(parentId,id,type,content,like_count,gtm_create) values(#{parentId},#{id},#{type},#{content},#{like_count},#{gtm_create})
+	</insert>
+	
+	<select id="queryComment" parameterType="Long" resultType="org.yeyz.fourm.model.CommentTb">
+		select * from CommentTb where parentId = #{parentId}
+	</select>
+	
+	<update id="updateComment">
+		update CommentTb set like_count = #{like_count} where id = #{id}
+	</update>
+	
+	
+	<!-- 计算总数据量 -->
+	<select id="queryTotalCount" resultType="int" parameterType="Long">
+		select count(1) from CommentTb where parentId = #{parentId}
+	</select>
+	
+	
+	<!-- 分页 传递多个参数不需要 parameterType &lt;= , &gt;= 分别为 <= 和 >= -->
+	<select id="queryCommentByPage" resultType="org.yeyz.fourm.model.CommentTb">
+
+	select * from (
+	select t.*,rownum R from
+	(select * from CommentTb where parentId = #{parentId}
+	order by
+	gtm_create desc ) t
+	where rownum &lt;= #{currentPage} * #{pageSize}
+	) where R &gt;= (#{currentPage} - 1) * #{pageSize} + 1 and parentId = #{parentId}
+	order by gtm_create desc
+				
+			
+	</select>
+	
+	
+	
+	
+	
+	<!-- 查询单条语句 -->
+	<select id="queryCommentByOne" resultType="org.yeyz.fourm.model.CommentTb" parameterType="Long">
+
+				select * from CommentTb where parentId = #{parentId} and id = #{id}
+				
+	</select>
+	
+	
+	
+	<update id="updataCommentLikeCount" >
+	
+		update CommentTb set like_count = #{new_like_count} where id = #{id}
+		
+	</update>
+	
+	
+	<!-- 查询单条语句 -->
+	<select id="queryCommentById" resultType="org.yeyz.fourm.model.CommentTb" parameterType="Long">
+
+				select * from CommentTb where id = #{id}
+				
+	</select>
+	
+	
+	
+	<!-- 删除 -->
+	<delete id="deleteComment" parameterType="Long">
+		delete commenttb where parentId = #{parentId}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper> 

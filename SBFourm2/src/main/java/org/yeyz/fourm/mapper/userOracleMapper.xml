@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yeyz.fourm.mapper.UserOracleMapper">
+	
+	<select id="queryUserOracle" resultType="org.yeyz.fourm.model.UserOracle"  >
+		select * from UserOracle order by id
+	</select>
+	
+	<select id="queryUserByToken" resultType="org.yeyz.fourm.model.UserOracle"  parameterType="String">
+		select * from UserOracle where token = #{token}
+	</select>
+	
+	
+	<insert id="addUserOracle" parameterType="org.yeyz.fourm.model.UserOracle">	
+		insert into UserOracle values(#{name},#{id},#{bio},#{token},#{gtm_create},#{gtm_modified},#{avatar_url})
+	</insert>
+	
+		
+		
+	<select id="queryUserById" resultType="org.yeyz.fourm.model.UserOracle"  parameterType="Long">
+		select * from UserOracle where id = #{creator}
+	</select>	
+		
+</mapper> 

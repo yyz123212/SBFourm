@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yeyz.fourm.mapper.QuestionMapper">
+	
+	<select id="queryQuestion" resultType="org.yeyz.fourm.model.Question" >
+		select * from question
+	</select>
+	
+	
+	<insert id="addQuestion" parameterType="org.yeyz.fourm.model.Question">	
+		insert into question(id,title,description,creator,tag,gtm_create,gtm_modified) values(#{id},#{title},#{description},#{creator},#{tag},#{gtm_create},#{gtm_modified})
+	</insert>
+	
+	
+	
+	
+	
+	<!-- 计算总数据量 -->
+	<select id="queryTotalCount" resultType="int">
+		select count(1) from question
+	</select>
+	
+	
+	<!-- 分页 传递多个参数不需要 parameterType &lt;= , &gt;= 分别为 <= 和 >= -->
+	<select id="queryQuestionByPage" resultType="org.yeyz.fourm.model.Question">
+
+	select * from (
+	select t.*,rownum R from
+	(select * from question order by
+	gtm_create desc) t
+	where rownum &lt;= #{currentPage} * #{pageSize}
+	) where R &gt;= (#{currentPage} - 1) * #{pageSize} + 1
+	order by gtm_create desc
+				
+	</select>
+	
+	
+	
+	<!-- 个人页面 关联创建人id int creator 和 用户id -->
+	<!-- 计算总数据量 -->
+	<select id="queryTotalCountWithPersonal" resultType="int" parameterType="Long">
+		select count(1) from question where creator = #{userId}
+	</select>
+	
+	
+	<!-- 分页 传递多个参数不需要 parameterType &lt;= , &gt;= 分别为 <= 和 >= -->
+	<select id="queryQuestionByPageWithPersonal" resultType="org.yeyz.fourm.model.Question">
+
+	select * from (
+	select t.*,rownum R from
+	(select * from question 
+	where creator = #{userId}
+	order by
+	gtm_create desc) t
+	where rownum &lt;= #{currentPage} * #{pageSize}
+	) where R &gt;= (#{currentPage} - 1) * #{pageSize} + 1 and creator = #{userId}
+	order by gtm_create	desc	
+	</select>
+	
+	
+	<!-- 获取主题帖信息 -->
+	<select id="queryQuestionByThemeId" resultType="org.yeyz.fourm.model.Question"  parameterType="Long">
+		select * from question where id = #{id}
+	</select>
+	
+		
+	<!-- 更新数据 -->	
+	<update id="updateQuestionViewById">
+		update question set view_count = #{newView_count} where id = #{id}
+	</update>
+	
+	
+	<!-- 删除数据 -->
+	
+	<delete id="deleteQuestion" parameterType="Long">
+		delete question where id = #{id}
+	</delete>
+	
+	<!-- ***************************搜索***************************************************** -->
+	
+	<!-- 搜索模糊查询 -->
+	<select id="queryQuestionWithSeach" resultType="org.yeyz.fourm.model.Question" parameterType="String">
+			select * from question where title like '%${seachContent}%'
+	</select>	
+	
+	<!-- 计算总数据量 -->
+	<select id="queryTotalCountWithSeach" resultType="int" parameterType="String">
+		select count(1) from question where title like '%${seachContent}%'
+	</select>
+	
+	
+	
+	<!-- 分页搜索 传递多个参数不需要 parameterType &lt;= , &gt;= 分别为 <= 和 >= -->
+	<select id="queryQuestionSeachPage" resultType="org.yeyz.fourm.model.Question">
+
+	select * from (
+	select t.*,rownum R from
+	(select * from question where title like '%${seachContent}%' order by
+	gtm_create desc) t
+	where rownum &lt;= #{currentPage} * #{pageSize}
+	) where R &gt;= (#{currentPage} - 1) * #{pageSize} + 1 and title like '%${seachContent}%'
+	order by gtm_create desc
+				
+	</select>
+	
+	
+	
+	
+	
+	
+</mapper> 

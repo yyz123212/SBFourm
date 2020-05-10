@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yeyz.fourm.mapper.LevelCommentMapper">
+	
+	<insert id="addLevelComment" parameterType="org.yeyz.fourm.model.LevelComment">	
+		insert into LevelComment values(#{parentInfoId},#{levelId},#{type},#{levelCommentator},#{levelCommentContent},#{like_count},#{gtm_create})
+	</insert>
+	
+	<select id="queryLevelComment" resultType="org.yeyz.fourm.model.LevelComment" parameterType="Long">
+		select * from LevelComment where parentInfoId = #{parentInfoId} order by gtm_create desc
+	</select>
+	
+	
+	
+	<!-- 计算总数据量 -->
+	<select id="queryLevelTotalCount" resultType="int" parameterType="Long">
+		select count(1) from LevelComment where parentInfoId = #{parentInfoId}
+	</select>
+	
+	
+	<!-- 分页 传递多个参数不需要 parameterType &lt;= , &gt;= 分别为 <= 和 >= -->
+	<select id="queryLevelCommentByPage" resultType="org.yeyz.fourm.model.LevelComment">
+
+	select * from (
+	select t.*,rownum R from
+	(select * from LevelComment where parentInfoId = #{parentInfoId}
+	order by
+	gtm_create desc ) t
+	where rownum &lt;= #{levelCurrentPage} * #{levelPageSize}
+	) where R &gt;= (#{levelCurrentPage} - 1) * #{levelPageSize} + 1 and parentInfoId = #{parentInfoId}
+	order by gtm_create desc
+				
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="queryLevelCommentAll" resultType="org.yeyz.fourm.model.LevelComment" >
+		select * from LevelComment
+	</select>
+	
+	<!-- 删除 -->
+	
+	<delete id="deleteLevelComment" parameterType="Long">
+		delete LevelComment where parentInfoId = #{parentInfoId}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper> 

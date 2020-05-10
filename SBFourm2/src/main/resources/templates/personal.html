@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${sectionName}">个人中心</title>
+<script src = "/jquery-3.5.0.min.js"></script>
+<script src = "/js/community.js" type="application/javascript"></script>
+<script src = "/js/community2.js" type="application/javascript"></script>
+<script src = "/js/community3.js" type="application/javascript"></script>
+<script src = "/js/community4.js" type="application/javascript"></script>
+<script src = "/js/community5.js" type="application/javascript"></script>
+<script src="/js/bootstrap.min.js" type="application/javascript"></script>
+
+<link rel = "stylesheet" href = "/css/my.css"/>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+
+
+
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">叶问论坛</span>
+      </button>
+      <a class="navbar-brand" href="/" >叶问论坛</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <!-- 搜索框 -->
+      <form class="navbar-form navbar-left" action="/seach" method="post">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="搜索话题"  name="seachContent" id="seachContent">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+      </form>
+      
+     <!-- 登录 退出 个人资料 消息等操作 -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- 用户不为 null 则发帖功能显现 -->
+      <li th:if="${session.user != null}"> <a href="/publish">发帖</a> </li>
+      	<!-- 判断session是否为 null 为null显示登录-->
+        <li th:if="${session.user == null}"><a href="https://github.com/login/oauth/authorize?client_id=63d788312d85033b391b&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a></li>   
+        <!-- 不为null 显示用户名 -->
+        <li class="dropdown"  th:if="${session.user != null}">
+        	<!-- th:text="${session.user.name}" 获取用户名 -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+         	 <span th:text="${session.user.name}"></span>
+          	<span class="caret"></span>
+          </a> 
+          <ul class="dropdown-menu">
+           <li><a href="/personal/questions">我的主贴</a></li>
+            <li><a href="/logOut">退出</a></li>
+          </ul>
+        </li>
+      </ul>
+          
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid --> 
+
+</nav>
+<!-- ***************************************************************************************************** -->
+
+<div class="container-fluid">
+			<div class="row">
+				<!-- 最大屏幕时12分占9 -->
+				<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+					<h2> <span th:text="${sectionName}"></span> </h2>
+					<hr> <!-- hr表示分隔线 -->
+				
+					<div class="media" th:each="questionDTO:${pageDTO.questionDTOS}">
+						<div class="media-left">
+							<img class="media-object"  th:src="${questionDTO.avatar_url}"  style="width:38px ; height:38px">
+						</div>
+						<div class="media-body" >
+							<h4 class="media-heading" > <a th:href="@{'/question?id=' + ${questionDTO.id}}" th:text="${questionDTO.title}"> </a> </h4>
+							标签: <span th:text="${questionDTO.tag}" ></span> <br>
+							<!-- <textarea rows="5" cols="5" th:text="${questionDTO.description}"></textarea> <br> -->
+							<span class="themeInfo">
+								<span th:text="${questionDTO.comment_count}"></span>个回复•
+								<span th:text="${questionDTO.view_count}"></span>次浏览•
+								<span th:text="${questionDTO.gtm_create}"></span> <!-- 时间 -->
+								<span class="glyphicon glyphicon-trash"  th:data-id="${questionDTO.id}" onclick="deleteQuestion(this)"></span>
+							</span>
+						</div>
+					</div> <!-- media -->
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						
+						<li th:if="${pageDTO.currentPage} != 1 ">
+							<a href="/personal/questions?currentPage=1" aria-label="Previous"> <span aria-hidden="true">首页</span> </a>
+						</li>
+						<li th:if="${pageDTO.currentPage - 1} > 0 ">
+							<a th:href="@{'/personal/questions?currentPage=' + ${pageDTO.currentPage - 1}}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
+						</li>
+						
+						<li><a th:if="${pageDTO.currentPage} <= ${pageDTO.totalPage}" th:href="@{'/personal/questions?currentPage=' + ${pageDTO.currentPage}}" th:each="page:${pageDTO.currentPage}" th:text="${page}"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 1} <= ${pageDTO.totalPage}" th:href="@{'/personal/questions?currentPage=' + ${pageDTO.currentPage + 1}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 1"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 2} <= ${pageDTO.totalPage}" th:href="@{'/personal/questions?currentPage=' + ${pageDTO.currentPage + 2}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 2"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 3} <= ${pageDTO.totalPage}" th:href="@{'/personal/questions?currentPage=' + ${pageDTO.currentPage + 3}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 3"></a></li>
+						<li><a th:if="${pageDTO.currentPage + 4} <= ${pageDTO.totalPage}" th:href="@{'/personal/questions?currentPage=' + ${pageDTO.currentPage + 4}}" th:each="page:${pageDTO.currentPage}" th:text="${page} + 4"></a></li>
+						<li th:if="${pageDTO.currentPage} < ${pageDTO.totalPage}"><a th:href="@{'/personal/questions?currentPage=' + ${pageDTO.currentPage + 1}}" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a></li>
+						
+						<li th:if="${pageDTO.currentPage} != ${pageDTO.totalPage} ">
+							<a th:href="@{'/personal/questions?currentPage=' + ${pageDTO.totalPage}}" aria-label="Previous"> <span aria-hidden="true">末页</span> </a>
+						</li>
+					
+					</ul>
+				</nav>
+			</div>
+				
+				<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+					<div class="list-group" style="margin-top: 15px;">
+						<!-- 三目运算符 : section == questions class = active list-group-item ,否则为list-group-item -->
+						<a href="/personal/questions" th:class="${section == 'questions'}? 'active list-group-item' : 'list-group-item'" > 我的主贴 </a>
+						<!-- <a href="/personal/replies" th:class="${section == 'replies'}? 'active list-group-item' : 'list-group-item'">
+						最新回复
+						徽章 代表回复数
+							<span class="badge">14</span>
+						</a>  -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	
+</body>
+</html>
