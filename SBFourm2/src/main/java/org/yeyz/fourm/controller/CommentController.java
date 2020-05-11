@@ -117,7 +117,7 @@ public class CommentController {
 		// 1.总数据量
 		int totalCount = commentService.queryTotalCount(parentId);
 		// 2.每页显示多少条数据
-		int pageSize = 2;
+		int pageSize = 10;
 		// 3.当前页currentPage 在参数中
 		// 4.总页数 totalPage 已经由构造方法计算
 		
