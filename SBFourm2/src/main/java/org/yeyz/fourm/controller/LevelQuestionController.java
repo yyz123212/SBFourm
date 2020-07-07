@@ -1,9 +1,9 @@
 package org.yeyz.fourm.controller;
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,17 +11,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.yeyz.fourm.dto.CommentTbDTO;
+
 import org.yeyz.fourm.dto.LevelCommentDTO;
-import org.yeyz.fourm.dto.PageCommentDTO;
+
 import org.yeyz.fourm.dto.PageLevelCommentDTO;
-import org.yeyz.fourm.dto.QuestionDTO;
+
 import org.yeyz.fourm.model.CommentTb;
 import org.yeyz.fourm.model.LevelComment;
 import org.yeyz.fourm.model.Question;
@@ -59,7 +58,7 @@ public class LevelQuestionController {
 			) {
 		
 
-		System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+		//System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
 		String parentInfoId2 = request.getParameter("parentInfoId");
 		System.out.println("主回复测试Id2" + parentInfoId2);
 		if( parentInfoId2 != null) {
@@ -128,7 +127,7 @@ public class LevelQuestionController {
 		List<Long> levelCommnetIds = new ArrayList<Long>();
 		
 		//无序不可重复集合
-		Set<LevelCommentDTO> levelSet = new HashSet<LevelCommentDTO>();
+		
 		for(CommentTb comment : comments) {
 			for(LevelComment levelComment : levelComments) {
 				/*
@@ -171,7 +170,7 @@ public class LevelQuestionController {
 		
 		//PageLevelCommentDTO plcd = new PageLevelCommentDTO();
  		
-		System.out.println("哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇"+plcd);
+		//System.out.println("哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇"+plcd);
 		
 		map.put("plcd",plcd);
 		

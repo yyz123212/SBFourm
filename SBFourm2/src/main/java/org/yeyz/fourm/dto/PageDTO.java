@@ -2,7 +2,7 @@ package org.yeyz.fourm.dto;
 
 import java.util.List;
 
-import org.yeyz.fourm.model.Question;
+
 
 
 public class PageDTO {

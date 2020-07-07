@@ -57,7 +57,7 @@ public class IndexController {
 		// 4.总页数 totalPage 已经由构造方法计算
 		
 		List<Question> questiones = questionService.queryQuestionByPage(currentPage, pageSize);	
-		System.out.println("questiones : " + questiones);
+		//System.out.println("questiones : " + questiones);
 		List<UserOracle> users = service.queryUserOracle();
 		
 		List<QuestionDTO> questionDTOS = new ArrayList<QuestionDTO>();
@@ -96,6 +96,7 @@ public class IndexController {
 		
 		
 		return "index";
+		//return "redirect:index";
 	}
 	
 }

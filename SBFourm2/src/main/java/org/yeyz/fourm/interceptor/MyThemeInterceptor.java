@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.yeyz.fourm.model.UserOracle;
 import org.yeyz.fourm.service.IQuestionService;
@@ -24,7 +24,7 @@ public class MyThemeInterceptor implements HandlerInterceptor{
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		
+		System.out.println("拦截器工作");
 		Cookie[] cookies = request.getCookies();
 		
 		if(cookies != null && cookies.length != 0) {

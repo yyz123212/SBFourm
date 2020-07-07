@@ -3,7 +3,7 @@ package org.yeyz.fourm.method;
 
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+
 
 import org.springframework.stereotype.Component;
 import org.yeyz.fourm.dto.GitHubUser;
@@ -40,14 +40,14 @@ public class SendMethod {
 	//获取用户信息
 	public GitHubUser getUser(String access_token) {
 
-		// 和上面不同 获取用户信息 不需要 也不能有 body
+		
 		Request request = new Request.Builder()
 				.url("https://api.github.com/user")
 				.header("Authorization","token "+access_token)
 				.build();
 		try (Response response = client.newCall(request).execute()) {
 
-			//不是 toString() , 是 string()
+			
 			String result = response.body().string();
 			GitHubUser user = com.alibaba.fastjson.JSON.parseObject(result, GitHubUser.class);
 			return user;

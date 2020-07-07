@@ -68,7 +68,7 @@ public class AuthController {
 			//获取用户信息
 			GitHubUser gitHubUser = send.getUser(access_token);
 			System.out.println(gitHubUser);
-			
+			System.out.println("登录验证工作");
 			//处理token的flag
 			boolean flag = false;
 			
@@ -121,7 +121,9 @@ public class AuthController {
 					for(UserOracle us : userOracles) {
 						if( id == us.getId() ) {
 							token = us.getToken();
-							response.addCookie(new Cookie("token",token));
+							Cookie cookie = new Cookie("token", token);
+							cookie.setMaxAge(60 * 60 * 24 * 30 * 6);
+							response.addCookie(cookie);
 							break;
 						}
 					}
@@ -139,13 +141,16 @@ public class AuthController {
 				//将cookie放入浏览器
 				if( flag == true ) {
 					response.addCookie(new Cookie("token",token));
+					return "redirect:/";
 				}
 				
-				return "redirect:/";
-			
+				
+				//return "redirect:http://yeyz.free.idcfengye.com";
+				
 			}else {
 				//登录失败,重新登录
 				return "redirect:/";
+				//return "redirect:http://yeyz.free.idcfengye.com";
 			}
 
 			//return "index";
@@ -153,6 +158,7 @@ public class AuthController {
 			//localhost:8080/callback
 			
 		}
+		return "index";
 		}
 		
 	
