@@ -34,8 +34,8 @@ public class DeleteController {
 				
 			) {
 		
-		System.out.println(id);
-		System.out.println("删除控制器 : " + flag);
+		//System.out.println(id);
+		//System.out.println("删除控制器 : " + flag);
 		
 		if( flag == true ) {
 			List<CommentTb> comments = commentService.queryComment(id);
@@ -44,13 +44,13 @@ public class DeleteController {
 			for(CommentTb comment : comments) {
 				levelCommentService.deleteLevelComment(comment.getId());
 			}
-			System.out.println("删除层级评论");
+			//System.out.println("删除层级评论");
 			
 			commentService.deleteComment(id);
-			System.out.println("删除一级评论");
+			//System.out.println("删除一级评论");
 			
 			questionService.deleteQuestion(id);
-			System.out.println("删除主题帖");
+			//System.out.println("删除主题帖");
 		}
 		
 		List<Question> questions = questionService.queryQuestion();
